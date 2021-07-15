@@ -17,3 +17,18 @@ function findLongestSubstring(str) {
 }
 
 let res = findLongestSubstring('rithmschool');
+// 012345678910;
+// rithmschool;
+// i;
+// char = h;
+// longest = 7;
+// start = 4;
+// seen = {
+//   r: 1,
+//   i: 2,
+//   t: 3,
+//   h: 8,
+//   m: 5,
+//   s: 6,
+//   c: 7,
+// };
