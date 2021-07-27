@@ -1,3 +1,5 @@
+// Caso de Uso: Quando sabemos que temos items já quase ordenados
+
 // Com Arrays quase ordenados, checando se não fez trocas na ultima passada
 // Caso não haja trocas, terminar a execução
 function bubbleSort(arr) {
