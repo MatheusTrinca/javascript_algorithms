@@ -24,6 +24,16 @@ class SinglyLinkedList {
     this.length++;
     return this;
   }
+
+  pop() {}
+
+  // traverse(){
+  //   let current = this.head;
+  //   while(current){
+  //     console.log(current.value);
+  //     current = current.next;
+  //   }
+  // }
 }
 
 const list = new SinglyLinkedList();
