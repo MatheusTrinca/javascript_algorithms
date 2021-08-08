@@ -5,6 +5,8 @@ class Node {
   }
 }
 
+// --------------------------
+
 class SinglyLinkedList {
   constructor() {
     this.length = 0;
@@ -25,18 +27,52 @@ class SinglyLinkedList {
     return this;
   }
 
-  pop() {}
+  pop() {
+    if(!this.head) return undefined
+    let current = this.head;
+    let pre = current;
+    while(current.next !== null){
+      pre = current;
+      current = current.next
+    }
+    pre.next = null;
+    this.tail = pre;
+    this.length--;
+    if(this.length === 0){
+      this.tail = null;
+      this.head = null;
+    }
+    return current;
+  }
 
-  // traverse(){
-  //   let current = this.head;
-  //   while(current){
-  //     console.log(current.value);
-  //     current = current.next;
-  //   }
-  // }
+  shift() {
+    if(!this.head) return undefined
+    let current = this.head;
+    this.head = current.next
+    this.length--;
+    if(this.length === 0){
+      this.tail = null;
+    }
+    return current;
+  }
 }
 
 const list = new SinglyLinkedList();
-list.push(4);
-list.push(5);
+// console.log(list.push(1));
+// console.log(list.push(2));
+// console.log(list.push(3));
+
+// console.log(list.shift());
+// console.log(list);
+// console.log(list.shift());
+// console.log(list);
+// console.log(list.shift());
+// console.log(list);
+
+
+// console.log(list.pop());
+// console.log(list.pop());
+// console.log(list.pop());
+
+
 console.log(list);
