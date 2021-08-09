@@ -25,7 +25,7 @@ class SinglyLinkedList {
       this.tail = newNode;
     }
     this.length++;
-    return this;
+    return true;
   }
 
   // Remove do final
@@ -68,7 +68,7 @@ class SinglyLinkedList {
     newNode.next = this.head
     this.head = newNode
     this.length++;
-    return this;
+    return true;
   }
 
   // Traz o valor do nó que está no indice passado
@@ -98,30 +98,63 @@ class SinglyLinkedList {
   }
 
   // add um nó em uma posição específica
-  insert(){}
+  insert(index, value){
+    if(index < 0 || index > this.length) return undefined
+    if(index === 0) {
+      return this.unshift(value);
+    }
+    if(index === this.length) {
+      return this.push(value);
+    }
+    const newNode = new Node(value);
+    const prev = this.get(index - 1);
+    const temp = prev.next
+    prev.next = newNode;
+    newNode.next = temp
+    this.length++;
+    return true;
+  }
+
+  remove(index){
+    if(index < 0 || index >= this.length) return undefined;
+    if(index === 0) return this.shift();
+    if(index === this.length -1) return this.pop();
+    const prev = this.get(index -1);
+    const temp = prev.next;
+    prev.next = temp.next;
+    temp.next = null;
+    this.length--;
+    return temp;
+  }
+
+  //! ESTUDAR
+  reverse(){
+    var node = this.head;
+    this.head = this.tail;
+    this.tail = node;
+    var next;
+    var prev = null;
+    for(var i = 0; i < this.length; i++){
+      next = node.next;
+      node.next = prev;
+      prev = node;
+      node = next;
+    }
+    return this;
+  }
+  
+  print(){
+      var arr = [];
+      var current = this.head
+      while(current){
+          arr.push(current.val)
+          current = current.next
+      }
+      console.log(arr);
+  }
 }
   
 const list = new SinglyLinkedList();
 console.log(list.push(1));
 console.log(list.push(2));
 console.log(list.push(3));
-
-console.log(list.get(1));
-console.log(list.set(1, 80));
-console.log(list.get(1));
-
-// console.log(list.unshift(4))
-// console.log(list.unshift(5))
-// console.log(list.unshift(6))
-
-// console.log(list.shift());
-// console.log(list);
-// console.log(list.shift());
-// console.log(list);
-// console.log(list.shift());
-// console.log(list);
-
-
-// console.log(list.pop());
-// console.log(list.pop());
-// console.log(list.pop());
