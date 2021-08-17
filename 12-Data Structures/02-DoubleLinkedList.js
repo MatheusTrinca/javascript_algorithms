@@ -72,13 +72,75 @@ class DoubleLinkedList {
     return true
   } 
 
+  get(index) {
+    if(index < 0 || index >= this.length) return null;
+    let current = this.head;
+    let count = 0;
+    if(index <= this.length / 2){
+      while(count !== index){
+        current = current.next;
+        count++
+      }
+    }else {
+      current = this.tail;
+      count = this.length - 1
+      while(count !== index){
+        current = current.prev;
+        count--
+      }
+    }
+    return current
+  }
+
+  set(index, value){
+    const foundNode = this.get(index);
+    if(!foundNode) return null;
+    foundNode.value = value;
+    return foundNode;
+  }
+
+  insert(index, value) {
+    if(index < 0 || index > this.length) return null;
+    if(index === this.length) return this.push(value);
+    if(index === 0) return this.unshift(value);
+    const newNode = new Node(value)
+    const beforeNode = this.get(index - 1);
+    const afterNode = prevNode.next;
+    beforeNode.next = newNode;
+    newNode.prev = beforeNode;
+    newNode.next = afterNode;
+    afterNode.prev = newNode;
+    this.length++;
+    return true;
+  }
+
+  remove(index) {
+    if(index < 0 || index >= this.length) return null;
+    if(index === this.length - 1) return this.pop();
+    if(index === 0) return this.shift();
+    const removeNode = this.get(index);
+    const afterNode = removeNode.next;
+    const beforeNode = removeNode.prev;
+    beforeNode.next = afterNode;
+    afterNode.prev = beforeNode;
+    //removedNode.prev.next = removeNode.next;
+    //removedNode.next.prev = removeNode.prev
+    removeNode.next = null;
+    removeNode.prev = null
+    this.length--;
+    return true;
+  }
+
+  
+
 }
 
 const list = new DoubleLinkedList();
 
 list.push(1)
 list.push(2)
-list.unshift(5)
-
+list.push(3)
+list.push(5)
+list.remove(3)
 
 console.log(list);
