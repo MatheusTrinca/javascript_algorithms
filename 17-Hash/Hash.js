@@ -33,9 +33,35 @@ class HashTable {
     }
     return undefined
   }
+
+  values() {
+    let values = [];
+    for (let index of this.keyMap){
+      if(index){
+        for (let hash of index){
+          values.push(hash[1])
+        }
+      }
+    }
+    return values;
+  }
+
+  keys() {
+  let keys = [];
+    for (let index of this.keyMap){
+      if(index){
+        for (let hash of index){
+          keys.push(hash[0])
+        }
+      }
+    }
+    return keys;
+  }
 }
 
 let ht = new HashTable();
 
 console.log(ht.set('hello world', 'goodbye!!'));
-console.log(ht.get('hello world'));
+console.log(ht.set('hello 2', 'goodbye 2!!'));
+console.log(ht.set('hello 3', 'goodbye 3!!'));
+console.log(ht.keys());
