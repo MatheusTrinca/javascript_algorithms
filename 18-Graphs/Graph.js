@@ -1,45 +1,91 @@
 class Graph {
   constructor() {
-    this.adjancecyList = {};
+    this.adjacencyList = {};
   }
 
   addVertex(vertexName) {
-    if (!this.adjancecyList[vertexName]) {
-      this.adjancecyList[vertexName] = [];
+    if (!this.adjacencyList[vertexName]) {
+      this.adjacencyList[vertexName] = [];
     }
   }
 
   addEdge(vertex1, vertex2) {
-    this.adjancecyList[vertex1].push(vertex2);
-    this.adjancecyList[vertex2].push(vertex1);
+    this.adjacencyList[vertex1].push(vertex2);
+    this.adjacencyList[vertex2].push(vertex1);
   }
 
   removeEdge(vertex1, vertex2) {
-    this.adjancecyList[vertex1] = this.adjancecyList[vertex1].filter(
+    this.adjacencyList[vertex1] = this.adjacencyList[vertex1].filter(
       (edge) => edge !== vertex2
     );
-    this.adjancecyList[vertex2] = this.adjancecyList[vertex2].filter(
+    this.adjacencyList[vertex2] = this.adjacencyList[vertex2].filter(
       (edge) => edge !== vertex1
     );
   }
 
   removeVertex(vertex) {
-    for (let edge of this.adjancecyList[vertex]) {
-      this.adjancecyList[edge] = this.adjancecyList[edge].filter(
+    for (let edge of this.adjacencyList[vertex]) {
+      this.adjacencyList[edge] = this.adjacencyList[edge].filter(
         (v) => v !== vertex
       );
     }
-    delete this.adjancecyList[vertex];
+    delete this.adjacencyList[vertex];
+  }
+
+  DFSRecursive(startingVertex) {
+    const result = [];
+    const visited = {};
+    
+    const DFS = (vertex) => {
+      if(!vertex){
+        return null;
+      }
+      visited[vertex] = true
+      result.push(vertex)
+      this.adjacencyList[vertex].forEach(neighbor => {
+        if(!visited[neighbor]){
+          return DFS(neighbor)
+        }
+      })
+    }
+    DFS(startingVertex)
+    return result;
+  }
+
+  DFSInteractive(startingVertex) {
+    const result = [];
+    const stack = [startingVertex];
+    const visited = {};
+    visited[startingVertex] = true;
+    let vtx;
+    while(stack.length){
+      vtx = stack.shift();
+      result.push(vtx);
+      this.adjacencyList[vtx].forEach(neighbor => {
+        if(!visited[neighbor]){
+          visited[neighbor] = true
+          stack.push(neighbor);
+        }
+      })
+    }
+    return result
   }
 }
-const graph = new Graph();
+const g = new Graph();
 
-graph.addVertex('Tokyo');
-graph.addVertex('Dallas');
-graph.addVertex('Aspen');
-graph.addEdge('Tokyo', 'Dallas');
-graph.addEdge('Tokyo', 'Aspen');
-//graph.removeEdge('Tokyo', 'Dallas');
-graph.removeVertex('Tokyo');
+g.addVertex('A')
+g.addVertex('B')
+g.addVertex('C')
+g.addVertex('D')
+g.addVertex('E')
+g.addVertex('F')
 
-console.log(graph.adjancecyList);
+g.addEdge('A', 'B')
+g.addEdge('A', 'C')
+g.addEdge('B', 'D')
+g.addEdge('C', 'E')
+g.addEdge('D', 'E')
+g.addEdge('D', 'F')
+g.addEdge('E', 'F')
+
+console.log(g.DFSInteractive('A'));
