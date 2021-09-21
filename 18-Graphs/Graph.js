@@ -59,12 +59,31 @@ class Graph {
     visited[startingVertex] = true;
     let vtx;
     while(stack.length){
-      vtx = stack.shift();
+      vtx = stack.pop();
       result.push(vtx);
       this.adjacencyList[vtx].forEach(neighbor => {
         if(!visited[neighbor]){
           visited[neighbor] = true
           stack.push(neighbor);
+        }
+      })
+    }
+    return result
+  }
+
+  BFSInteractive(startingVertex) {
+    const result = [];
+    const queue = [startingVertex];
+    const visited = {};
+    visited[startingVertex] = true;
+    let vtx;
+    while(queue.length){
+      vtx = queue.shift();
+      result.push(vtx);
+      this.adjacencyList[vtx].forEach(neighbor => {
+        if(!visited[neighbor]){
+          visited[neighbor] = true
+          queue.push(neighbor);
         }
       })
     }
@@ -89,3 +108,4 @@ g.addEdge('D', 'F')
 g.addEdge('E', 'F')
 
 console.log(g.DFSInteractive('A'));
+console.log(g.BFSInteractive('A'));
