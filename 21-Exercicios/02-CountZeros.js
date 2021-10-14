@@ -1,15 +1,16 @@
-function binarySearch(arr, value) {
-  let left = 0;
-  let right = arr.length - 1;
-  let middle = 0;
-  while (left <= right) {
-    middle = Math.round((left + right) / 2);
-    if (value === arr[middle]) return middle;
-    if (value < arr[middle]) {
-      right = middle - 1;
-    } else {
-      left = middle + 1;
-    }
+function countZeroes(arr) {
+  let counter = 0;
+  let start = 0;
+  let end = arr.length - 1;
+  while(start < end){
+    if(arr[start] === 0) counter++
+    if(arr[end] === 0) counter++
+    start++
+    end--;
   }
-  return -1;
+  return counter;
 }
+
+const array = [1, 1, 1 ,1 ,0]
+
+console.log(countZeroes(array));
