@@ -133,6 +133,19 @@ class SinglyLinkedList {
     }
     return result;
   }
+
+  remove(index) {
+    if (!this.length || index < 0 || index >= this.length) return undefined;
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
+    const temp = this.get(index);
+    const prev = temp.prev;
+    prev.next = temp.next;
+    temp.next = null;
+    temp.prev = null;
+    this.length--;
+    return temp;
+  }
 }
 
 const ssl = new SinglyLinkedList();
